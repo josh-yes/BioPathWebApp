@@ -1,0 +1,10 @@
+{
+  "/api/pathways/": "/pathways",
+  "/api/pathways/:id": "/pathways/:id",
+
+  "/api/users/": "/users",
+  "/api/users/:id": "/users/:id",
+
+  "/api/groups/": "/groups",
+  "/api/groups/:id": "/groups/:id" 
+}

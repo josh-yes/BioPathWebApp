@@ -1,0 +1,11 @@
+This file is for attributing/keeping track of the icons 
+  we use in our project
+
+1) file icon
+  link: https://www.flaticon.com/search?type=icon&word=file&license=&color=black&shape=&current_section=&author_id=&pack_id=&family_id=&style_id=&choice=&type=icon 
+2) view icon 
+  link: https://www.flaticon.com/search?type=icon&word=view&license=&color=black&shape=&current_section=&author_id=&pack_id=&family_id=&style_id=&choice=&type=icon 
+3) help icon 
+  link: https://www.flaticon.com/search?type=icon&word=help&license=&color=black&shape=&current_section=&author_id=&pack_id=&family_id=&style_id=&choice=&type=icon 
+4) user icon 
+  link: https://www.flaticon.com/search?type=icon&word=user&license=&color=black&shape=&current_section=&author_id=&pack_id=&family_id=&style_id=&choice=&type=icon 

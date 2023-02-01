@@ -1,0 +1,14 @@
+{
+  "name": "jsontestserver",
+  "version": "1.0.0",
+  "description": "Mock REST API for testing frontend functionality",
+  "main": "index.js",
+  "scripts": {
+    "json:server-only": "json-server -p 4000 --routes routes.json --watch db.json"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "json-server": "^0.17.1"
+  }
+}

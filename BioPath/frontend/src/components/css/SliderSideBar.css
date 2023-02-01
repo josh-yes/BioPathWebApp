@@ -1,0 +1,85 @@
+/* 
+    NAME: SliderSideBar.css
+    LAST_EDIT_BY: Cole S.
+    FILE_RESPONSIBILITY: 
+        This file will hold all css pertaining to the slider bars which will be display within the RightSideBarArea
+        It will contain all the slider bars needed to affect the pathway model
+ */
+
+/* ------------------------------------------------------- */
+/* Slider Siderbar Compnent css */
+/* ------------------------------------------------------- */
+/* .sliderBar {
+  margin: 8px;
+  margin-top: 4px;
+  padding: 8px;
+  height: fit-content;
+  overflow-x: hidden;
+  overflow-y: auto;
+} */
+
+/* div.scroll {
+                  margin:4px, 4px;
+                  padding:4px;
+                  background-color: green;
+                  width: 500px;
+                  height: 110px;
+                  overflow-x: hidden;
+                  overflow-y: auto;
+                  text-align:justify;
+              } */
+
+.sliderBarList {
+  list-style-type: none;
+  /* margin-left: 4px; */
+  margin: 0px;
+  padding: 0px;
+}
+.sliderBarList > li {
+  margin: 8px;
+}
+
+#sliderComponentTitle {
+  padding: 8px;
+  margin: 0px;
+}
+
+/* ------------------------------------------------------- */
+/* Slider css */
+/* ------------------------------------------------------- */
+.Slider {
+  height: 150px;
+  border: 4px solid red;
+}
+
+#cardHeaderList {
+  display: flex;
+  list-style-type: none;
+  padding: 0px;
+}
+#cardHeaderList > li {
+  margin: 4px;
+  display: inline-block;
+}
+#carHeaderList > li > h4 {
+  margin-left: 8px;
+}
+
+.cardHeaderDropdownButton {
+  background: transparent;
+  border: none;
+}
+
+#cardHeaderCaret {
+  max-width: 12px;
+  height: auto;
+}
+
+/* .sliderCardContents {
+  margin-left: 0px;
+} */
+
+#concentrationSlider {
+  box-sizing: border-box;
+}
+

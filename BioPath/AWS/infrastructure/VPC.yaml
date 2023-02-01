@@ -1,0 +1,90 @@
+Description: VPC(Virtual Private Cloud) for Biopath App
+
+Resources:
+  #--------------------------------------------------------------------
+  #       VPC Specific Resources 
+  #--------------------------------------------------------------------
+  VPC:
+    Description: The VPC that the ECS cluster is deployed to
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: '10.0.0.0/16'
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      InstanceTenancy: default 
+ 
+  # We will be using two subnets, each built in two different sub reigions
+  # within the us-west-2 zone 
+  PublicSubnetOne:
+    Type: AWS::EC2::Subnet
+    Description: First Public Subnet
+    Properties:
+      VpcId: !Ref VPC
+      AvaliblityZone: us-west-2a
+      CidrBlock: !Sub '10.0.0.0/20'
+      MapPublicIpOnLaunch: true
+
+  PublicSubnetTwo:
+    Type: AWS::EC2::Subnet
+    Description: Second Public Subnet
+    Properties: 
+      VpcId: !Ref VPC
+      AvaliblityZone: us-west-2b
+      CidrBlock: !Sub '10.0.32.0/20'
+      MapPublicIpOnLaunch: true
+  
+  #--------------------------------------------------------------------
+  #       Internet Access Resources
+  #--------------------------------------------------------------------
+  InternetGateway:
+    Type: 'AWS::EC2::InternetGateway'
+
+  VPCGatewayAttachment:
+    Type: 'AWS::EC2::VPCGatewayAttachment'
+    Properties:
+      InternetGatewayId: !Ref InternetGateway
+      VpcId: !Ref VPC
+
+  RouteTable:
+    Type: 'AWS::EC2::RouteTable'
+    Properties:
+      VpcId: !Ref VPC
+
+  # the route tables associations link the route table to 
+  # each of the defined subnets
+  RouteTableAssociationOne:
+    Type: 'AWS::EC2::SubnetRouteTableAssociation'
+    Properties:
+      SubnetId: !Ref PublicSubnetOne
+      RouteTableId: !Ref RouteTable
+
+  RouteTableAssociationTwo:
+    Type: 'AWS::EC2::SubnetRouteTableAssociation'
+    Properties:
+      SubnetId: !Ref PublicSubnetTwo
+      RouteTableId: !Ref RouteTable
+
+  InternetRoute:
+    Type: 'AWS::EC2::Route'
+    DependsOn: VPCGatewayAttachment
+    Properties:
+      GatewayId: !Ref InternetGateway
+      RouteTableId: !Ref RouteTable
+      DestinationCidrBlock: '0.0.0.0/0'
+
+# Output resources for reference in other files
+Outputs: 
+  VPC:
+    Value: !Ref VPC
+    Export:
+      Name: "VPC"
+  
+  SubnetOne:
+    Value: !Ref PublicSubnetOne
+    Export:
+      Name: "PublicSubnetOne"
+
+  SubnetTwo:
+    Value: !Ref PublicSubnetTwo
+    Export:
+      Name: "PublicSubnetTwo"

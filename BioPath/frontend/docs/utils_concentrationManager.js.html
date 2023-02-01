@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: utils/concentrationManager.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: utils/concentrationManager.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Manages concentrations of a model and
+ * notifies any listeners on concentration change
+ * @class
+ * @classdesc Managing model concentrations for
+ * real time web app.
+ * 
+ * @author zburnaby
+ */
+class ConcentrationManager {
+    /**
+     * @constructor
+     * @param {Object[]} enzymes list of enzymes
+     * @param enzymes[].substrates list of input moleules to the enzyme
+     * @param enzymes[].products list of output molecules to the enzyme
+     * @param enzymes[].cofactors list of molecules effecting the enzyme's production
+     */
+    constructor(enzymes) {
+        /*
+         * {
+         *  substrates: ["G", "ATP"],
+         *  products: ["G6", "ADP"],
+         *  cofactors: ["Na"]
+         * }
+         */
+        this.enzymes = enzymes;
+        this.moleculeConcentrations = [];
+        this.setEnzymes(this.enzymes);
+        this.listeners = [];
+        this.interval = null;
+    }
+
+    /**
+     * Initializes the molecule_concentrations list given some enzymes
+     * @function
+     * @param {Object[]} enzymes list of enzymes
+     * @param enzymes[].substrates list of input moleules to the enzyme
+     * @param enzymes[].products list of output molecules to the enzyme
+     * @param enzymes[].cofactors list of molecules effecting the enzyme's production
+     */
+    setEnzymes(enzymes) {
+        for (const enzyme of enzymes) {
+            for (const substrate of enzyme.substrates) {
+                this.moleculeConcentrations[substrate] = 100;
+            }
+            for (const product of enzyme.products) {
+                this.moleculeConcentrations[product] = 100;
+            }
+            for (const cofactor of enzyme.cofactors) {
+                this.moleculeConcentrations[cofactor] = 100;
+            }
+        }
+    }
+
+    /**
+     * Updates the concentrations of each molecule
+     * @function
+     */
+    updateConcentrations() {
+        let cachedConcentrations = this.moleculeConcentrations;
+        for (const enzyme of this.enzymes) {
+            let minSubstrateConc = null;
+            for (const substrate of enzyme.substrates) {
+                if (!minSubstrateConc) {
+                    minSubstrateConc = cachedConcentrations[substrate];
+                }
+                if (cachedConcentrations[substrate] &lt; minSubstrateConc) {
+                    minSubstrateConc = cachedConcentrations[substrate];
+                }
+            }
+            for (const substrate of enzyme.substrates) {
+                if (minSubstrateConc) {
+                    this.moleculeConcentrations[substrate] -= minSubstrateConc * 0.1;
+                }
+            }
+            for (const product of enzyme.products) {
+                if (minSubstrateConc) {
+                    this.moleculeConcentrations[product] += minSubstrateConc * 0.1;
+                }
+            }
+        }
+        this.notifyListeners();
+    }
+
+    /**
+     * Passes current molecule concentrations to all listening functions
+     * @function
+     */
+    notifyListeners() {
+        for (const listener of this.listeners) {
+            listener(this.moleculeConcentrations);
+        }
+    }
+
+    /**
+     * @callback onUpdateConcentration
+     * @param {Object[]} molecule_concentrations
+     */
+
+    /**
+     * Add listener function from listener queue
+     * @function
+     * @param {onUpdateConcentration} listener
+     */
+    addListener(listener) {
+        this.listeners.push(listener);
+    }
+
+    /**
+     * Remove listener function from listener queue
+     * @function
+     * @param {onUpdateConcentration} listener
+     */
+    removeListener(listener) {
+        for (let i = 0; i &lt; this.listeners.length; i++) {
+            if (this.listeners[i] === listener) {
+                this.listeners.splice(i, 1);
+            }
+        }
+    }
+
+    /**
+     * Adds an interval to call {@link updateConcentrations} every milliseconds
+     * @param {int} milliseconds time between function calls
+     */
+    run(milliseconds) {
+        this.interval = setInterval(this.updateConcentrations(), milliseconds);
+    }
+
+    /**
+     * Stops the running {@link updateConcentrations} interval
+     */
+    stop() {
+        if (this.interval) {
+            clearInterval(this.interval);
+        }
+    }
+
+    /**
+     * Updates the current {@link updateConcentrations} interval to new milliseconds
+     * @param {int} milliseconds 
+     */
+    updateInterval(milliseconds) {
+        if (this.interval) {
+            clearInterval(this.interval);
+            this.interval = setInterval(this.updateConcentrations(), milliseconds);
+        }
+    }
+
+    /**
+     * Manually set the concentration of a molecule
+     * @param {string} title 
+     * @param {int} value 
+     */
+    setConcentration(title, value) {
+        this.moleculeConcentrations[title] = value;
+        this.notifyListeners();
+    }
+}
+
+export default concentrationManager;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ConcentrationManager.html">ConcentrationManager</a></li></ul><h3>Global</h3><ul><li><a href="global.html#buildFlow">buildFlow</a></li><li><a href="global.html#findMolecules">findMolecules</a></li><li><a href="global.html#findSliders">findSliders</a></li><li><a href="global.html#FlowModel">FlowModel</a></li><li><a href="global.html#generateEdges">generateEdges</a></li><li><a href="global.html#generateNodes">generateNodes</a></li><li><a href="global.html#Slider">Slider</a></li><li><a href="global.html#SliderSideBar">SliderSideBar</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.11</a> on Thu Jan 26 2023 12:37:19 GMT-0800 (Pacific Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

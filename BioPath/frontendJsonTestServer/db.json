@@ -1,0 +1,213 @@
+{
+  "Users":[
+    {
+      "id": "1",
+      "username": "cstainsby",
+      "groups": []
+    },
+    {
+      "id": "2",
+      "username": "hugh janus",
+      "groups": []
+    }
+  ],
+
+  "pathways":[
+    {
+      "id": "1",
+      "name": "Glycolysis",
+      "author": "Admin",
+      "link": "https://proteopedia.org/wiki/index.php/Glycolysis",
+      "public": true,
+      "enzymes": [
+        {
+          "id": 1,
+          "name": "Hexokinase",
+          "image": "path/to/image",
+          "link": "https://proteopedia.org/wiki/index.php/Kyle_Schroering_Sandbox",
+          "author": "Admin",
+          "public": true,
+          "reversible": false,
+          "x": 100,
+          "y": 150,
+          "substrates": [
+            "1",
+            "4"
+          ],
+          "products": [
+            "2",
+            "5"
+          ],
+          "cofactors": ["ATP"]
+        },
+        {
+          "id": 2,
+          "name": "Phosphohexase",
+          "image": "path/to/image",
+          "link": "https://proteopedia.org/wiki/index.php/Kyle_Schroering_Sandbox",
+          "author": "Admin",
+          "public": true,
+          "reversible": true,
+          "x": 100,
+          "y": 450,
+          "substrates": [
+            "2"
+          ],
+          "products": [
+            "3"
+          ],
+          "cofactors": ["HCL"]
+        }
+      ],
+      "molecules": [
+        {
+          "id": 1,
+          "name": "Glucose",
+          "ball_and_stick_image": "path/to/image",
+          "space_filling_image": "path/to/image",
+          "link": "https://en.wikipedia.org/wiki/Glucose",
+          "author": "Admin",
+          "public": true,
+          "x": 100,
+          "y": 0
+        },
+        {
+          "id": 2,
+          "name": "Glucose6P",
+          "ball_and_stick_image": "path/to/image",
+          "space_filling_image": "path/to/image",
+          "link": "https://en.wikipedia.org/wiki/Glucose_6-phosphate",
+          "author": "Admin",
+          "public": true,
+          "x": 100,
+          "y": 300
+        },
+        {
+          "id": 3,
+          "name": "Fructose6P",
+          "ball_and_stick_image": "path/to/image",
+          "space_filling_image": "path/to/image",
+          "link": "https://en.wikipedia.org/wiki/Glucose_6-phosphate",
+          "author": "Admin",
+          "public": true,
+          "x": 100,
+          "y": 600
+        },
+        {
+          "id": 4,
+          "name": "ATP",
+          "ball_and_stick_image": "path/to/image",
+          "space_filling_image": "path/to/image",
+          "link": "https://en.wikipedia.org/wiki/Glucose_6-phosphate",
+          "author": "Admin",
+          "public": true,
+          "x": 200,
+          "y": 0
+        },
+        {
+          "id": 5,
+          "name": "ADP",
+          "ball_and_stick_image": "path/to/image",
+          "space_filling_image": "path/to/image",
+          "link": "https://en.wikipedia.org/wiki/Glucose_6-phosphate",
+          "author": "Admin",
+          "public": true,
+          "x": 200,
+          "y": 300
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Citric Acid Cycle",
+      "author": "Admin",
+      "link": "https://proteopedia.org/wiki/index.php/Glycolysis",
+      "public": true,
+      "enzymes": [
+        {
+          "id": 3,
+          "name": "Citrate synthase",
+          "image": "path/to/image",
+          "link": "https://proteopedia.org/wiki/index.php/Kyle_Schroering_Sandbox",
+          "author": "Admin",
+          "public": true,
+          "reversible": false,
+          "x": 0,
+          "y": 100,
+          "substrates": [
+            "1",
+            "2"
+          ],
+          "products": [
+            "3",
+            "4"
+          ],
+          "cofactors": []
+        },
+        {
+          "name": "Isocitrate dehydrogenase",
+          "image": "path/to/image",
+          "link": "https://proteopedia.org/wiki/index.php/Kyle_Schroering_Sandbox",
+          "author": "Admin",
+          "public": true,
+          "reversible": false,
+          "x": 0,
+          "y": 500,
+          "substrates": [
+            "3"
+          ],
+          "products": [
+            "3"
+          ],
+          "cofactors": ["NADH"]
+        }
+      ],
+      "molecules": [
+        {
+          "id": 1,
+          "name": "Puruvate",
+          "ball_and_stick_image": "path/to/image",
+          "space_filling_image": "path/to/image",
+          "link": "https://en.wikipedia.org/wiki/Glucose",
+          "author": "Admin",
+          "public": true,
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": 2,
+          "name": "Acetyl-CoA",
+          "ball_and_stick_image": "path/to/image",
+          "space_filling_image": "path/to/image",
+          "link": "https://en.wikipedia.org/wiki/Glucose_6-phosphate",
+          "author": "Admin",
+          "public": true,
+          "x": 200,
+          "y": 0
+        },
+        {
+          "id": 3,
+          "name": "Citrate",
+          "ball_and_stick_image": "path/to/image",
+          "space_filling_image": "path/to/image",
+          "link": "https://en.wikipedia.org/wiki/Glucose_6-phosphate",
+          "author": "Admin",
+          "public": true,
+          "x": 0,
+          "y": 300
+        },
+        {
+          "id": 4,
+          "name": "CoA",
+          "ball_and_stick_image": "path/to/image",
+          "space_filling_image": "path/to/image",
+          "link": "https://en.wikipedia.org/wiki/Glucose_6-phosphate",
+          "author": "Admin",
+          "public": true,
+          "x": 200,
+          "y": 300
+        }
+      ]
+    }
+  ]
+}

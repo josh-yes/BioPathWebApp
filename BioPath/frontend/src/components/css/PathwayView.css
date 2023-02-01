@@ -1,0 +1,57 @@
+/* 
+    NAME: PathwayView.css
+    LAST_EDIT_BY: Cole S.
+    FILE_RESPONSIBILITY: 
+        This file will hold all css pertaining to the main pathway view containing all other components
+ */
+
+:root {
+  --total-screen-size: 100vh;
+  --total-screen-width: 100vw;
+
+  /* 
+    The sizes of all "side" elements will be stated here, 
+    the main pathway view will resize according to their needs 
+  */
+  --navbar-y-size: 60px;
+  --right-side-bar-width: 300px;
+}
+
+/* fluid container which holds everything */
+#MainView {
+  margin-left: 0px;
+  margin-right: 0px;
+  padding: 0px;
+}
+
+/* the row holding the main pathway view, and any additional sidebars */
+#PathwayViewRow {
+  height: calc(var(--total-screen-size) - var(--navbar-y-size));
+  width: inherit;
+  margin: 0px;
+}
+
+/* The nav bar view area */
+#NavBarRow {
+  height: var(--navbar-y-size);
+  width: inherit;
+  border-bottom: solid grey 2px;
+
+  margin: 0px;
+}
+
+/* Sidebar area */
+#RightSideBarAreaCol {
+  /* maybe in the future make fit-content */
+  width: var(--right-side-bar-width);
+  border-left: solid grey 2px;
+  padding: 4px;
+}
+
+/* column in pathwayViewRow which holds the main reaction view */
+#ModelAreaCol {
+  height: inherit;
+  
+  padding-left: 0px;
+  padding-right: 0px;
+}

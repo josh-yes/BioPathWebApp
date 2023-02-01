@@ -1,0 +1,93 @@
+Description: Container Definitions (Tasks and Services)
+
+Resources:
+  #--------------------------------------------------------------------
+  #       Task Definitions and Service Resources
+  #-------------------------------------------------------------------- 
+  #task definition for the frontend 
+  FrontendTaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      Family: BiopathFrontend
+      NetworkMode: awsvpc
+      RequiresCompatibilities:
+        - FARGATE
+      ExecutionRoleArn: !Ref 'BiopathECSTaskExecutionRole'
+      Cpu: 256
+      Memory: 512
+      ContainerDefinitions:
+        - Name: BiopathFrontend
+          Essential: true
+          Image: biopath_frontend:frontend_latest
+          Environment: 
+            - Name: SEARCH_DOMAIN
+              Value: !Ref 'Domain' 
+          PortMappings:
+            - ContainerPort: 80
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group: !Ref AWS::StackName
+              awslogs-region: !Ref AWS::Region
+              awslogs-stream-prefix: "Biopath"
+
+  # service for the frontend 
+  FrontendService:
+    Type: AWS::ECS::Service
+    DependsOn: BiopathLoadBalancerListener
+    Properties: 
+      LaunchType: !Ref LaunchType
+      Cluster: !Ref Cluster
+      DesiredCount: !Ref CountOfUiTasks
+      ServiceRegistries:
+        - RegistryArn: !GetAtt BiopathFrontendServiceDiscoveryEntry.Arn
+      TaskDefinition: !Ref 'FrontendTaskDefinition'
+      LoadBalancers:
+        - ContainerName: 'BiopathFrontend'
+          ContainerPort: 80
+          TargetGroupArn: !Ref BiopathTargetGroup
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+            AssignPublicIp: !Ref PublicIP
+            Subnets: [ !Ref 'PublicSubnetOne' , !Ref 'PublicSubnetTwo'  ]
+            SecurityGroups: [!Ref 'BiopathFrontendSecurityGroup' ]
+
+  BackendTaskDefinition:
+      Type: AWS::ECS::TaskDefinition
+      Properties:
+        Family: BiopathBackend
+        NetworkMode: awsvpc
+        RequiresCompatibilities:
+            - FARGATE
+        ExecutionRoleArn: !Ref 'BiopathECSTaskExecutionRole'
+        Cpu: 256
+        Memory: 512
+        ContainerDefinitions:
+          - Name: BiopathBackend
+            Essential: true
+            Image: biopath_backend:backend_latest
+            Environment: 
+              - Name: SEARCH_DOMAIN
+                Value: !Ref 'Domain' 
+            PortMappings:
+              - ContainerPort: 4567
+            LogConfiguration:
+              LogDriver: awslogs
+              Options:
+                  awslogs-group: !Ref AWS::StackName
+                  awslogs-region: !Ref AWS::Region
+                  awslogs-stream-prefix: "Biopath"
+  BackendService: 
+    Type: AWS::ECS::Service
+    Properties: 
+      LaunchType: !Ref LaunchType
+      Cluster: !Ref Cluster
+      DesiredCount: !Ref CountOfAppserverTasks
+      ServiceRegistries:
+        - RegistryArn: !GetAtt BiopathBackendServiceDiscoveryEntry.Arn
+      TaskDefinition: !Ref 'BackendTaskDefinition'
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          AssignPublicIp: !Ref PublicIP
+          Subnets: [ !Ref 'PublicSubnetOne' , !Ref 'PublicSubnetTwo'  ]
+          SecurityGroups: [!Ref 'BackendSecurityGroup' ]

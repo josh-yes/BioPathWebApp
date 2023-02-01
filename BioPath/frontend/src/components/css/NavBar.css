@@ -1,0 +1,34 @@
+/* 
+    NAME: NavBar.css
+    LAST_EDIT_BY: Cole S.
+    FILE_RESPONSIBILITY: 
+        This file will hold all css pertaining to the top NavBar 
+ */
+
+
+#loadPathwayList {
+  padding-left: 0px;
+}
+
+#loadPathwayListItem {
+  list-style-type: none;
+  margin: 8px;
+}
+
+#loadPathwaySelect {
+  margin: 0px;
+  padding: 4px;
+  
+  background: transparent;
+  border: none !important;
+}
+
+.loadPathwayListTitle {
+  text-align: left;
+}
+
+.loadPathwayListAuthor {
+  text-align: left;
+  padding-left: 16px;
+  margin: 0px;
+}

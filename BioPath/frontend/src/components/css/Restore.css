@@ -1,0 +1,18 @@
+/* 
+    NAME: Restore.css
+    LAST_EDIT_BY: Cole S.
+    FILE_RESPONSIBILITY: 
+        This file will hold all css pertaining to the restore css provided by react flow
+ */
+
+.save__controls {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    z-index: 4;
+    font-size: 12px;
+}
+
+.save__controls button {
+    margin-left: 5px;
+}

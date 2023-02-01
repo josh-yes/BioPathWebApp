@@ -1,0 +1,23 @@
+
+#PathwayTitle {
+  padding: 4px;
+}
+
+#RightSideBarList {
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
+
+  display: flex;
+  align-items: center;
+}
+
+#RightSideBarList > li {
+  display: inline-block;
+  padding-left: 8px;
+}
+
+#RightSideBarDescription {
+  margin: 8px;
+  margin-top: 4px;
+}

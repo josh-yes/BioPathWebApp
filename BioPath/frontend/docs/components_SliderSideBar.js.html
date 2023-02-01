@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/SliderSideBar.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/SliderSideBar.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useEffect, useState } from 'react'
+
+import "./css/SliderSideBar.css";
+import "./css/stylesheet.css";
+
+import dropdownLogo from "../icons/arrow-down-sign-to-navigate.png";
+
+
+/**
+ * Display and control concentration of pathway cofactors
+ * @param props
+ * @prop {sliderMolecule[]} molecules
+ * @param molecules[].string
+ * @param molecules[].value
+ * @prop handleSliderChange(string, int): void
+ */
+const SliderSideBar = (props) => {
+  const handleSliderOpen = (cofactorTitle, newOpenStatus) => {
+    if(newOpenStatus === true) {
+      // close all others when another slider has been set to open
+    }
+  }
+
+  const sliderItems = props.molecule.map((molecule) => 
+      &lt;li>
+        &lt;Slider 
+          title={ molecule.title }
+          value={ molecule.value }
+          handleSliderChange={ props.handleSliderChange } />
+      &lt;/li>
+    );
+
+    return (
+      &lt;div className='card ModelAreaChild' id='PathwaySliderBox'>
+        &lt;h3 id="sliderComponentTitle">{ props.slidersTitle }&lt;/h3>
+        {( props.slidersDescription !== "") &amp;&amp; &lt;p>&lt;small class="text-muted">{ props.slidersDescription }&lt;/small>&lt;/p> }
+        &lt;ul className='sliderBarList'>
+          {sliderItems}
+        &lt;/ul>
+      &lt;/div>
+    )
+}
+
+/**
+ * Named slider selector
+ * @prop title - title of the substrate passed in
+ * @prop value
+ * @prop handleSliderChange 
+ */
+const Slider = (props) => {
+  let [isExpanded, setIsExpanded] = useState(false);
+
+  const handleSliderValueChange = (newSliderValue) => {
+    props.handleSliderChange(props.title, newSliderValue);
+  }
+
+  const handleClick = (e) => {
+    setIsExpanded(!isExpanded);
+  }
+
+  const openHeader = 
+        &lt;ul id='cardHeaderList'>
+            &lt;li>
+                &lt;button className='cardHeaderDropdownButton' onClick={(e) => handleClick(e.target.value)}>
+                &lt;img 
+                id='cardHeaderCaret' 
+                src={dropdownLogo} />
+                &lt;/button>
+            &lt;/li>
+        &lt;li>&lt;h5>{props.title}&lt;/h5>&lt;/li>
+        &lt;/ul>
+
+    const closeHeader = 
+        &lt;button className='cardHeaderDropdownButton' onClick={(e) => handleClick(e.target.value)}>
+            &lt;ul id='cardHeaderList'>
+            &lt;li>&lt;img id='cardHeaderCaret' src={dropdownLogo} style={{ transform: "rotate(-90deg)"}}  />&lt;/li>
+            &lt;li>&lt;h5>{props.title}&lt;/h5>&lt;/li>
+            &lt;li>&lt;small class="text-muted">{ props.value * 100 }%&lt;/small>&lt;/li>
+            &lt;/ul>
+        &lt;/button>
+
+    const cardContents = 
+        &lt;div className='card-body sliderCardContents'>
+            &lt;input 
+                id="concentrationSlider"
+                className='slider'
+                type="range"
+                min={0.0}
+                step={0.1}
+                max={2.0}
+                onChange={(e) => handleSliderValueChange(e.target.value)}
+                value={props.value}
+            />
+            &lt;p className='card-text'>{parseInt(props.value * 100)}% of concentration&lt;/p> {/* parseInt because 110% was giving a long float */}
+      &lt;/div>
+      
+
+  return (
+    &lt;div className='card growCard' id='sliderCard'>
+      { isExpanded ? openHeader : closeHeader}
+      { isExpanded ? cardContents : null }
+    &lt;/div>
+  )
+
+}
+
+export default SliderSideBar;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ConcentrationManager.html">ConcentrationManager</a></li></ul><h3>Global</h3><ul><li><a href="global.html#buildFlow">buildFlow</a></li><li><a href="global.html#findMolecules">findMolecules</a></li><li><a href="global.html#findSliders">findSliders</a></li><li><a href="global.html#FlowModel">FlowModel</a></li><li><a href="global.html#generateEdges">generateEdges</a></li><li><a href="global.html#generateNodes">generateNodes</a></li><li><a href="global.html#getPathwayById">getPathwayById</a></li><li><a href="global.html#Slider">Slider</a></li><li><a href="global.html#SliderSideBar">SliderSideBar</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.11</a> on Thu Jan 26 2023 13:30:51 GMT-0800 (Pacific Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
